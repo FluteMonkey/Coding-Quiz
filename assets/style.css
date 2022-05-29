@@ -1,0 +1,26 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    margin: 3vh 5vh 0 5vh;
+    font-size: 20px;
+}
+.quiz {
+    display: flex;
+    text-align: center;
+    font-size: 3vh;
+    justify-content: center;
+    margin: auto 30vh auto 30vh;
+    flex-wrap: wrap;
+}
+.question h2 {
+    font-size: 6vh;
+}
+button {
+    background-color: aquamarine;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: xx-large;
+}
