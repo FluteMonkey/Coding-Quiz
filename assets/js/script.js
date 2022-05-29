@@ -1,77 +1,51 @@
-  
-  var questionEl = document.querySelector("#question");
-  var optionListEl = document.querySelector("#option-list");
-  var questionResultEl = document.querySelector("#question-result");
-  var timerEl = document.querySelector("#timer");
-  
+//variable to reference DOM elements
+var questionsEl = document.getElementById("questions");
+var timerEl = document.getElementById("time");
+var choicesEl = document.getElementById("choices");
+var submitBtn = document.getElementById("submit");
+var startBtn = document.getElementById("start");
+var initialsEl = document.getElementById("initials");
+var feedbackEl = document.getElementById("feedback");
+
+// variables to keep track of quiz 
   var questionIndex = 0;
-  var correctCount = 0;
-  
-  var time = 20;
-  var intervalId;
-  
+  var time = questions.length
+  var timerId
+
+  function quizStart() {
+      //hiding the start screen
+
+      //unhide questions
+
+      //start timer
+
+      getQuestion();
+  }
+
+  function getQuestion() {
+      // get the question from object array
+
+      //update current question title
+
+      //clear old choices
+
+      //creat new choices
+  }
+
+  function questionClick() {
+      //check if answer was right
+
+      //penalize time or move on
+
+      //check for more questions
+  }
+
   function endQuiz() {
-    clearInterval(intervalId);
-    var body = document.body;
-    body.innerHTML = "Game over, You scored " + correctCount;
+      //show end screen
+
+      //hide questions
+
+      //show score
+
+      //stop timer
   }
-  
-  function updateTime() {
-    time--;
-    timerEl.textContent = time;
-    if (time <= 0) {
-      endQuiz();
-    }
-  }
-  
-  function renderQuestion() {
-  
-    if (time == 0) {
-      updateTime();
-      return;
-    }
-  
-    intervalId = setInterval(updateTime, 1000);
-  
-    questionEl.textContent = questions[questionIndex].question;
-  
-    optionListEl.innerHTML = "";
-    questionResultEl.innerHTML = "";
-  
-    var choices = questions[questionIndex].choices;
-    var choicesLenth = choices.length;
-  
-    for (var i = 0; i < choicesLenth; i++) {
-      var questionListItem = document.createElement("li");
-      questionListItem.textContent = choices[i];
-      optionListEl.append(questionListItem);
-    }
-  }
-  
-  function nextQuestion() {
-    questionIndex++;
-    if (questionIndex === questions.length) {
-      time = 0;
-    }
-    renderQuestion();
-  }
-  
-  function checkAnswer(event) {
-    clearInterval(intervalId);
-    if (event.target.matches("li")) {
-      var answer = event.target.textContent;
-      if (answer === questions[questionIndex].answer) {
-        questionResultEl.textContent = "Correct";
-        correctCount++;
-      } else {
-        questionResultEl.textContent = "Incorrect";
-        time = time - 2;
-        timerEl.textContent = time;
-      }
-    }
-    setTimeout(nextQuestion, 2000);
-  }
-  
-  renderQuestion();
-  optionListEl.addEventListener("click", checkAnswer);
-  
