@@ -5,7 +5,6 @@ var choicesEl = document.getElementById("choices");
 var submitBtn = document.getElementById("submit");
 var startBtn = document.getElementById("get_started");
 var initialsEl = document.getElementById("initials");
-var feedbackEl = document.getElementById("feedback");
 
 // variables to keep track of quiz 
   var questionIndex = 0;
@@ -88,4 +87,31 @@ var feedbackEl = document.getElementById("feedback");
     timerEl.textContent = time;
   }
 
+  function saveHighscore() {
+    // get value of input box
+    var initials = initialsEl.value.trim();
+  
+    // make sure value wasn't empty
+    if (initials !== "") {
+      // get saved scores from localstorage, or if not any, set to empty array
+      var highscores =
+        JSON.parse(window.localStorage.getItem("highscores")) || [];
+  
+      // format new score object for current user
+      var newScore = {
+        score: time,
+        initials: initials
+      };
+  
+      // save to localstorage
+      highscores.push(newScore);
+      window.localStorage.setItem("highscores", JSON.stringify(highscores));
+  
+      // redirect to next page
+      window.location.href = "highscores.html";
+    }
+  }
+
   startBtn.onclick = quizStart;
+
+  submitBtn.onclick = saveHighscore;
