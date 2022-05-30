@@ -27,30 +27,60 @@ var feedbackEl = document.getElementById("feedback");
 
   function getQuestion() {
       // get the question from object array
+      var currentQuestion = questions[questionIndex];
 
       //update current question title
-
+      var titleEl = document.getElementById("question-title");
+      //pull question from object array
+      titleEl.textContent = currentQuestion.title;
       //clear old choices
-
+      choicesEl.innerHTML = "";
       //creat new choices
+      currentQuestion.choices.forEach(function(choice, j){
+          //create a new button
+          var option = document.createElement("button");
+          option.setAttribute("class", "choice");
+          option.setAttribute("value", choice);
+
+          option.textContent = j + 1 +". " + choice;
+
+          option.onclick = questionSelect;
+
+          choicesEl.appendChild(option);
+      })
   }
 
-  function questionClick() {
+  function questionSelect() {
       //check if answer was right
+      if (this.value !== questions[questionIndex].answer) {
+        //penalize time if question was wrong  
+        time -= 20;
+          //returns time to 0 if it would fall below
+          if (time < 0) {
+              time = 0;
+          }
+          timerEl.textContent = time;
+      }
+      questionIndex++
 
-      //penalize time or move on
-
-      //check for more questions
+      if (questionIndex === questions.length) {
+          endQuiz();
+      } else {
+          getQuestion();
+      }
   }
 
   function endQuiz() {
       //show end screen
-
+      var endScreenEl = document.getElementById("end-screen");
+      endScreenEl.removeAttribute("class");
       //hide questions
-
+      questionsEl.setAttribute("class", "hidden");
       //show score
-
+      var finalScoreEl = document.getElementById("final-score");
+      finalScoreEl.textContent = time
       //stop timer
+      clearInterval(timerId);
   }
 
   function clockTick() {
